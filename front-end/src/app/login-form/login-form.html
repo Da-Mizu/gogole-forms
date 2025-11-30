@@ -1,0 +1,35 @@
+<!-- Minimalist login form: light gray on off-white background -->
+<section class="login-page">
+  <div class="login-card" role="form" aria-labelledby="loginTitle">
+    <h1 id="loginTitle" class="login-title">Se connecter</h1>
+    <p class="login-sub">Entrez vos identifiants pour accéder à votre compte</p>
+
+    <form class="login-form" novalidate>
+      <label for="username" class="sr-only">Nom d'utilisateur</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        placeholder="Nom d'utilisateur"
+        autocomplete="username"
+        required
+      />
+
+      <label for="password" class="sr-only">Mot de passe</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Mot de passe"
+        autocomplete="current-password"
+        required
+      />
+
+      <button type="submit" (click)="onSubmit()" class="btn-login">Se connecter</button>
+
+      <div class="login-footer">
+        <a href="#" class="forgot">Mot de passe oublié ?</a>
+      </div>
+    </form>
+  </div>
+</section>

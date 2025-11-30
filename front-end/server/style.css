@@ -1,0 +1,73 @@
+h1{
+    text-align: center;
+}
+
+header {
+    height: 90px;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    background-color: rgb(168, 161, 173);
+}
+
+form{
+    text-align: center;
+}
+
+
+.buttons{
+    text-align: center;
+}
+
+.buttons button{ 
+    height:90px;
+    color:red;
+    background-color: rgb(255, 255, 0);
+    border-color: blue;
+    border-width: 7px;
+    font-weight: bold;
+}
+
+#b2{
+    position: fixed;
+    left:30%;
+    top:300px;
+}
+
+#b1{
+    position: fixed;
+    right:30%;
+    top:300px;
+}
+
+#b3{
+    position: fixed;
+    right:5%;
+    top:34px;
+}
+
+#txt1{
+    position: fixed;
+    left:6%;
+    top:0%;
+}
+
+#txt2{
+    position:sticky;
+    top:0%;
+}
+
+addquestion{
+    position:fixed;
+    top :10%;
+    left :90%;
+}
+
+#rectangle{
+    background-color: rgb(56, 48, 105);
+    position: fixed;
+    width:200px;
+    height:1080px;
+    right: 0%;
+}

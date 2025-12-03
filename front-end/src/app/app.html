@@ -1,1 +1,59 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<main class="main">
+  <nav class="navbar">
+    <ul>
+      <li><a routerLink="/" class="nav-btn">Accueil</a></li>
+      <li class="nav-separator"></li>
+      <li><a routerLink="/login" class="nav-btn">Connexion</a></li>
+      <li class="nav-separator"></li>
+      <li><a routerLink="/register" class="nav-btn">Inscription</a></li>
+      <li class="nav-separator"></li>
+      <li><a routerLink="/about" class="nav-btn">À propos</a></li>
+      <li class="nav-separator"></li>
+      <li><a routerLink="/contact" class="nav-btn">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="login-section">
+    <form class="login-form" (submit)="onLogin($event)">
+      <h2>Connexion</h2>
+      <div class="form-group">
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Votre nom d'utilisateur"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Votre mot de passe"
+          required
+        />
+      </div>
+      <button type="submit" class="login-btn">Se connecter</button>
+    </form>
+  </section>
+</main>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
 <router-outlet />

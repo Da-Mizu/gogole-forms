@@ -20,7 +20,7 @@ export class App {
     const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
     console.log('Tentative de connexion...' + username + password + hashedPassword);
 
-    fetch('/server/login_check.php', {
+    fetch('http://localhost:8000/login_check.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

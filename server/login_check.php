@@ -36,7 +36,7 @@ if (!$username || !$password) {
 }
 
 // Vérifie si l'utilisateur existe
-$stmt = $pdo->prepare('SELECT * FROM users WHERE username = ? AND password = ?');
+$stmt = $pdo->prepare('SELECT * FROM mdp WHERE login = ? AND MDP = ?');
 $stmt->execute([$username, $password]);
 $user = $stmt->fetch();
 

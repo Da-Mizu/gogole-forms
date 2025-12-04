@@ -1,248 +1,132 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1deb1
--- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : lun. 17 nov. 2025 à 09:47
--- Version du serveur : 10.11.6-MariaDB-0+deb12u1
--- Version de PHP : 8.2.7
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `gogoleform`
+-- Base de données : `google-form`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `MDP`
+-- Structure de la table `answer`
 --
 
-CREATE TABLE `MDP` (
-  `idutilisateur` int(11) NOT NULL,
-  `login` varchar(11) NOT NULL,
-  `MDP` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `MDP`
---
-
-INSERT INTO `MDP` (`idutilisateur`, `login`, `MDP`) VALUES
-(1, 'admin', 'admin');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `propositions`
---
-
-CREATE TABLE `propositions` (
-  `id_question` int(11) NOT NULL,
-  `proposition` int(11) NOT NULL
+CREATE TABLE `answer` (
+  `id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `answer_text` text NOT NULL,
+  `answered_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `questions`
+-- Structure de la table `form`
 --
 
-CREATE TABLE `questions` (
-  `id_question` int(11) NOT NULL,
-  `intitule` text NOT NULL,
-  `id_sondage` int(11) NOT NULL
+CREATE TABLE `form` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `questions`
---
-
-INSERT INTO `questions` (`id_question`, `intitule`, `id_sondage`) VALUES
-(1, 'chocolat', 1),
-(2, 'fqsfqsdf', 1),
-(3, 'veux tu moi ?', 1),
-(4, 'veux tu serrer', 1),
-(5, 'oui ?', 2),
-(6, 'Fourchette ou cuillère ?', 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reponses`
+-- Structure de la table `question`
 --
 
-CREATE TABLE `reponses` (
-  `id_rep` int(11) NOT NULL,
-  `valeur` text NOT NULL,
-  `id_question` int(11) NOT NULL,
-  `hash` int(11) NOT NULL
+CREATE TABLE `question` (
+  `id` int(11) NOT NULL,
+  `form_id` int(11) NOT NULL,
+  `question_text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `reponses`
---
-
-INSERT INTO `reponses` (`id_rep`, `valeur`, `id_question`, `hash`) VALUES
-(8, 'blanc', 1, 1),
-(9, 'caca', 1, 1),
-(10, 'qsdqd', 2, 1),
-(11, 'uiluiu', 2, 1),
-(12, 'bien evidemment', 3, 1),
-(13, 'Antoine Daniel (Jack)', 3, 1),
-(14, 'tournevis', 4, 1),
-(15, 'caquerelle', 4, 1),
-(16, 'peut être', 5, 1),
-(17, 'surement', 5, 1),
-(18, 'grss', 5, 1),
-(19, 'ISS', 5, 1),
-(20, 'cuillère mais c\'est moi la petite', 6, 1),
-(21, 'un coup, quatre trous', 6, 1),
-(22, 'surement', 5, 1),
-(23, 'cuillère mais c\'est moi la petite', 6, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sondage`
+-- Structure de la table `user`
 --
 
-CREATE TABLE `sondage` (
-  `id_sondage` int(11) NOT NULL,
-  `titre` text NOT NULL
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `sondage`
---
-
-INSERT INTO `sondage` (`id_sondage`, `titre`) VALUES
-(1, 'recette'),
-(2, 'Sondage du 2025-11-17 09:33:59');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `utilisateurs`
---
-
-CREATE TABLE `utilisateurs` (
-  `hash` int(11) NOT NULL,
-  `nom` text NOT NULL,
-  `prenom` text NOT NULL,
-  `idutilisateur` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `utilisateurs`
---
-
-INSERT INTO `utilisateurs` (`hash`, `nom`, `prenom`, `idutilisateur`) VALUES
-(1, 'Admin', 'Super', 1);
 
 --
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `MDP`
+-- Index pour la table `answer`
 --
-ALTER TABLE `MDP`
-  ADD PRIMARY KEY (`idutilisateur`),
-  ADD KEY `idutilisateur` (`idutilisateur`);
+ALTER TABLE `answer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_answer_question` (`question_id`),
+  ADD KEY `fk_answer_user` (`user_id`);
 
 --
--- Index pour la table `propositions`
+-- Index pour la table `form`
 --
-ALTER TABLE `propositions`
-  ADD PRIMARY KEY (`id_question`);
+ALTER TABLE `form`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `questions`
+-- Index pour la table `question`
 --
-ALTER TABLE `questions`
-  ADD PRIMARY KEY (`id_question`),
-  ADD KEY `id_sondage` (`id_sondage`);
+ALTER TABLE `question`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_question_form` (`form_id`);
 
 --
--- Index pour la table `reponses`
+-- Index pour la table `user`
 --
-ALTER TABLE `reponses`
-  ADD PRIMARY KEY (`id_rep`),
-  ADD KEY `id_question` (`id_question`),
-  ADD KEY `hash` (`hash`);
-
---
--- Index pour la table `sondage`
---
-ALTER TABLE `sondage`
-  ADD PRIMARY KEY (`id_sondage`);
-
---
--- Index pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`hash`),
-  ADD UNIQUE KEY `hash_3` (`hash`),
-  ADD KEY `hash` (`hash`),
-  ADD KEY `hash_2` (`hash`),
-  ADD KEY `idutilisateur` (`idutilisateur`);
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `questions`
+-- AUTO_INCREMENT pour la table `answer`
 --
-ALTER TABLE `questions`
-  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `answer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `reponses`
+-- AUTO_INCREMENT pour la table `form`
 --
-ALTER TABLE `reponses`
-  MODIFY `id_rep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `form`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `sondage`
+-- AUTO_INCREMENT pour la table `question`
 --
-ALTER TABLE `sondage`
-  MODIFY `id_sondage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `question`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `MDP`
+-- Contraintes pour la table `answer`
 --
-ALTER TABLE `MDP`
-  ADD CONSTRAINT `MDP_ibfk_1` FOREIGN KEY (`idutilisateur`) REFERENCES `utilisateurs` (`idutilisateur`);
+ALTER TABLE `answer`
+  ADD CONSTRAINT `fk_answer_question` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  ADD CONSTRAINT `fk_answer_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Contraintes pour la table `questions`
+-- Contraintes pour la table `question`
 --
-ALTER TABLE `questions`
-  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`id_sondage`) REFERENCES `sondage` (`id_sondage`);
-
---
--- Contraintes pour la table `reponses`
---
-ALTER TABLE `reponses`
-  ADD CONSTRAINT `reponses_ibfk_1` FOREIGN KEY (`id_question`) REFERENCES `questions` (`id_question`),
-  ADD CONSTRAINT `reponses_ibfk_2` FOREIGN KEY (`hash`) REFERENCES `utilisateurs` (`hash`);
+ALTER TABLE `question`
+  ADD CONSTRAINT `fk_question_form` FOREIGN KEY (`form_id`) REFERENCES `form` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
